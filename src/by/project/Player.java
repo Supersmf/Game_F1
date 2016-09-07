@@ -1,6 +1,7 @@
 package by.project;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -11,7 +12,11 @@ public class Player {
 	public static final int MAX_TOP = 40;
 	public static final int MAX_BOTTOM = 320;
 	
-	Image img = new ImageIcon("resources/car.png").getImage();
+	
+	Image img_D = new ImageIcon("resources/car.png").getImage();
+	Image img_R = new ImageIcon("resources/car_R.png").getImage();
+	Image img_L = new ImageIcon("resources/car_L.png").getImage();
+	Image img = img_D;
 
 	int v = 0;
 	int d = 0;
@@ -24,6 +29,10 @@ public class Player {
 
 	int layer1 = 0;
 	int layer2 = 910;
+	
+	public Rectangle getRect(){
+		return new Rectangle(x, y, 240, 109);
+	}
 
 	public void move() {
 		s += v;
@@ -52,9 +61,11 @@ public class Player {
 		}
 		if (key == KeyEvent.VK_UP){
 			dy = 10;
+//			img = img_L;
 		}
 		if (key == KeyEvent.VK_DOWN){
 			dy = -10;
+//			img = img_R;
 		}
 	}
 
@@ -65,6 +76,7 @@ public class Player {
 		}
 		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN){
 			dy = 0;
+//			img = img_D;
 		}
 	}
 }

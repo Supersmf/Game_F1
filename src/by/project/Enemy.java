@@ -1,6 +1,7 @@
 package by.project;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -11,6 +12,10 @@ public class Enemy {
 	int v;
 	Image img = new ImageIcon("resources/enemy.png").getImage();
 	Road road;
+	
+	public Rectangle getRect(){
+		return new Rectangle(x, y, 240, 119);
+	}
 	
 	public Enemy(int x, int y, int v, Road road){
 		this.x = x;

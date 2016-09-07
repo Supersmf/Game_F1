@@ -1,5 +1,7 @@
 package by.project;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -43,6 +46,13 @@ public class Road extends JPanel implements ActionListener, Runnable {
 		g.drawImage(img, p.layer1, 0, null);
 		g.drawImage(img, p.layer2, 0, null);
 		g.drawImage(p.img, p.x, p.y, null);
+		
+		double v = (200/Player.MAX_V) * p.v;
+		
+		g.setColor(Color.WHITE);
+		Font font = new Font("Arial", Font.ITALIC, 20);
+		g.setFont(font);
+		g.drawString("Speed: " + v + "km/h", 100, 20);
 
 		Iterator<Enemy> i = enemies.iterator();
 		while (i.hasNext()) {
@@ -62,7 +72,20 @@ public class Road extends JPanel implements ActionListener, Runnable {
 	public void actionPerformed(ActionEvent e) {
 		p.move();
 		repaint();
+		testCollisionWithEnemies();
 
+	}
+
+	private void testCollisionWithEnemies() {
+		
+		Iterator<Enemy> i = enemies.iterator();
+		while (i.hasNext()){
+			Enemy e = i.next();
+			if (p.getRect().intersects(e.getRect())){
+				JOptionPane.showMessageDialog(null, "Game over!!!");
+				System.exit(1);
+			}
+		}
 	}
 
 	private class MyKeyAdapter extends KeyAdapter {
